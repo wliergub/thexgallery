@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minimal Gallery</title>
-     <link rel="stylesheet" href="styles.css">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
 </head>
 <body>
     <header>
         <nav>
-            <a href="#" class="logo">GALLERY</a>
+            <a href="#" class="logo">X GALLERY</a>
             <div class="nav-links">
                 <a href="#home">Home</a>
                 <div class="dropdown">
@@ -27,25 +27,54 @@
     </header>
 
     <main>
-        <section class="gallery-section">
+        <!-- Home Section -->
+        <section id="home" class="home-section">
+            <h2>Welcome to Minimal Gallery</h2>
+            <p>Explore our curated collection of contemporary art.</p>
+        </section>
+
+        <!-- Current Exhibition Section -->
+        <section id="current" class="gallery-section">
             <h2>Current Exhibition</h2>
             <div class="gallery-grid">
-                <!-- Repeat this block for each gallery item -->
                 <div class="gallery-item">
-                    <img src="placeholder.jpg" alt="Artwork 1">
-                    <h3>Artwork Title</h3>
+                    <img src="placeholder1.jpg" alt="Artwork 1">
+                    <h3>Artwork Title 1</h3>
                     <p>Artist Name, 2023</p>
                 </div>
-                <!-- Add more gallery items here -->
+                <div class="gallery-item">
+                    <img src="placeholder2.jpg" alt="Artwork 2">
+                    <h3>Artwork Title 2</h3>
+                    <p>Artist Name, 2023</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="placeholder3.jpg" alt="Artwork 3">
+                    <h3>Artwork Title 3</h3>
+                    <p>Artist Name, 2023</p>
+                </div>
             </div>
         </section>
 
-        <section class="about-section">
-            <h2>About Us</h2>
-            <p>A minimalist space showcasing contemporary art in the heart of the city.</p>
+        <!-- Upcoming Exhibition Section -->
+        <section id="upcoming" class="upcoming-section">
+            <h2>Upcoming Exhibition</h2>
+            <p>Stay tuned for our next exhibition featuring emerging artists.</p>
         </section>
 
-        <section class="contact-section" id="contact">
+        <!-- Past Exhibition Section -->
+        <section id="past" class="past-section">
+            <h2>Past Exhibitions</h2>
+            <p>Explore our archive of past exhibitions and featured artists.</p>
+        </section>
+
+        <!-- Artists Section -->
+        <section id="artists" class="artists-section">
+            <h2>Featured Artists</h2>
+            <p>Discover the talented artists behind our exhibitions.</p>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
             <h2>Contact</h2>
             <form class="contact-form">
                 <input type="text" placeholder="Name" required>
@@ -59,9 +88,9 @@
     <footer>
         <p>&copy; 2023 Minimal Gallery. All rights reserved.</p>
         <div class="social-links">
-            <a href="#instagram">Instagram</a>
-            <a href="#twitter">Twitter</a>
-            <a href="#facebook">Facebook</a>
+            <a href="https://instagram.com" target="_blank">Instagram</a>
+            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <a href="https://facebook.com" target="_blank">Facebook</a>
         </div>
     </footer>
 </body>
