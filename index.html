@@ -3,144 +3,347 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Monochrome Lens | Photography Portfolio</title>
+    <style>
+        /* ===== Base Styles ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Typography ===== */
+        h1, h2, h3 {
+            font-weight: 300;
+            letter-spacing: 0.1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        p {
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* ===== Header & Navigation ===== */
+        header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid #000;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 0.3rem;
+            text-decoration: none;
+            color: #000;
+        }
+
+        /* ===== Dropdown Menu ===== */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            right: 0;
+            top: 100%;
+            border: 1px solid #000;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #000;
+            padding: 1rem;
+            text-decoration: none;
+            display: block;
+            transition: background 0.3s ease;
+            font-weight: 300;
+            letter-spacing: 0.1rem;
+        }
+
+        .dropdown-content a:hover {
+            background: #f8f8f8;
+        }
+
+        /* ===== Main Content ===== */
+        main {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 2rem;
+        }
+
+        /* ===== Gallery Styles ===== */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 4rem 0;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .gallery-item:hover img {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        /* ===== Collection Page ===== */
+        .collection-page {
+            padding: 4rem 0;
+            display: none;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .collection-page:target {
+            display: block;
+        }
+
+        /* ===== Footer Styles ===== */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid #000;
+            margin-top: auto;
+            background: #fff;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                padding: 2rem 0;
+            }
+
+            .gallery-item img {
+                height: 300px;
+            }
+
+            .dropdown-content {
+                min-width: 160px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            main {
+                padding: 0 1rem;
+            }
+
+            .gallery-item img {
+                height: 250px;
+            }
+
+            footer {
+                padding: 1.5rem;
+            }
+        }
+
+        /* ===== Utility Classes ===== */
+        .back-button {
+            display: inline-block;
+            margin-bottom: 2rem;
+            text-decoration: none;
+            color: #000;
+            border: 1px solid #000;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        /* ===== Loading State ===== */
+        .loading {
+            position: relative;
+            background: #f8f8f8;
+            overflow: hidden;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="#" class="logo">the X Gallery</a>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <div class="dropdown">
-                    <a href="#exhibitions">Exhibitions ▼</a>
-                    <div class="dropdown-content">
-                        <a href="#current">Current</a>
-                        <a href="#upcoming">Upcoming</a>
-                        <a href="#past">Past</a>
-                    </div>
+            <a href="#" class="logo">MONOCHROME LENS</a>
+            <div class="dropdown">
+                <button class="dropbtn">☰</button>
+                <div class="dropdown-content">
+                    <a href="#home">Home</a>
+                    <a href="#portfolio">Portfolio</a>
+                    <a href="#about">About</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <a href="#artists">Artists</a>
-                <a href="#contact">Contact</a>
             </div>
         </nav>
     </header>
 
     <main>
-        
-        <section id="home" class="home-section">
-            <h2>the X Gallery</h2>
-            <p>Explore our curated collection of contemporary art.</p>
+        <section class="gallery-grid">
+            <figure class="gallery-item">
+                <a href="#collection">
+                    <img src="https://source.unsplash.com/random/600x800?portrait" alt="Portrait Series">
+                </a>
+            </figure>
+            <figure class="gallery-item">
+                <a href="#collection">
+                    <img src="https://source.unsplash.com/random/600x800?landscape" alt="Landscape Series">
+                </a>
+            </figure>
+            <figure class="gallery-item">
+                <a href="#collection">
+                    <img src="https://source.unsplash.com/random/600x800?architecture" alt="Architecture Series">
+                </a>
+            </figure>
         </section>
 
-        
-        <section id="current" class="gallery-section">
-            <h2>Current Exhibition</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/84e4d300-b2ad-4769-867c-a5afff04e1d7.?format=jpeg" alt="Artwork 1">
-                    <h3>Title X.1</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/6fdeebc7-381f-40be-97c4-3f1d09289085?format=jpeg" alt="Artwork 2">
-                    <h3>Title X.2</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/b52b94bb-98a9-4430-92c8-86c2d819081e?format=jpeg" alt="Artwork 3">
-                    <h3>Title X.3</h3>
-                    <p>2025</p>
-                </div>
+        <section id="collection" class="collection-page">
+            <a href="#" class="back-button">Back to Gallery</a>
+            <h2>Full Collection</h2>
+            <div class="collection-grid">
+                <!-- Add full collection images here -->
+                <img src="https://source.unsplash.com/random/400x600?photo1" alt="Collection Item 1">
+                <img src="https://source.unsplash.com/random/400x600?photo2" alt="Collection Item 2">
+                <img src="https://source.unsplash.com/random/400x600?photo3" alt="Collection Item 3">
+                <img src="https://source.unsplash.com/random/400x600?photo4" alt="Collection Item 4">
+                <img src="https://source.unsplash.com/random/400x600?photo5" alt="Collection Item 5">
+                <img src="https://source.unsplash.com/random/400x600?photo6" alt="Collection Item 6">
             </div>
-        </section>
-
-        
-        <section id="upcoming" class="upcoming-section">
-            <h2>Upcoming Exhibition</h2>
-                       <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/ea335d0e-8b46-488e-b196-10b300d79de0.?format=jpeg" alt="Artwork 1">
-                    <h3>Title T.1</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/acb9b3d3-60e6-439f-971f-b5c8a909beb2?format=jpeg" alt="Artwork 2">
-                    <h3>Title T.2</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/c6085ce3-aa1e-45cc-920f-d2d2be37fe2b?format=jpeg" alt="Artwork 3">
-                    <h3>Title T.3</h3>
-                    <p>2025</p>
-                </div>
-            </div>
-            <p>Stay tuned for our next exhibition featuring emerging artists.</p>
-        </section>
-
-        
-        <section id="past" class="past-section">
-            <h2>Past Exhibitions</h2>
-                       <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/f767ca08-fd62-4177-8cd0-1eb505822a67?format=jpeg" alt="Artwork 1">
-                    <h3>Title Z.1</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/6fdeebc7-381f-40be-97c4-3f1d09289085?format=jpeg" alt="Artwork 2">
-                    <h3>Title Z.2</h3>
-                    <p>2025</p>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/b2c30272-87f1-4f8d-b375-7f262d708eb6?format=jpeg" alt="Artwork 3">
-                    <h3>Title Z.3</h3>
-                    <p>2025</p>
-                </div>
-            </div>
-            <p>Explore our archive of past exhibitions and featured artists.</p>
-        </section>
-
-        
-        <section id="artists" class="artists-section">
-            <h2>Featured Artists</h2><div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/f45bf254-cd30-46ec-ab95-2167451e3d11?format=jpeg" alt="Artwork 1">
-                    <h3>X</h3>
-                    
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/9042040f-a100-4ea4-944a-5c5867f5c670?format=jpeg" alt="Artwork 2">
-                    <h3>Y</h3>
-                    
-                </div>
-                <div class="gallery-item">
-                    <img src="https://cdn.cosmos.so/605e7afa-6a68-453f-b668-fe8f6268abae?format=jpeg" alt="Artwork 3">
-                    <h3>Z</h3>
-                    
-                </div>
-            </div>
-            <p>Discover the talented artists behind our exhibitions.</p>
-        </section>
-
-       
-        <section id="contact" class="contact-section">
-            <h2>Contact</h2>
-            <form class="contact-form">
-                <input type="text" placeholder="Name" required>
-                <input type="email" placeholder="Email" required>
-                <textarea rows="5" placeholder="Message" required></textarea>
-                <button type="submit">Send Message</button>
-            </form>
         </section>
     </main>
 
     <footer>
-        <p>&copy; 2025 Ta Duy Minh Nghia</p>
-        <div class="social-links">
-            <a href="https://www.instagram.com/hyjukikjh/" target="_blank">Instagram</a>
-            <a href="https://www.facebook.com/hyjukikjh/" target="_blank">Facebook</a>
-        </div>
+        <p>&copy; 2024 Monochrome Lens. All rights reserved.</p>
+        <p>Contact: studio@monochromelens.com</p>
     </footer>
+
+    <script>
+        // Mobile menu functionality
+        document.querySelector('.dropdown').addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                this.querySelector('.dropdown-content').classList.toggle('active');
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.querySelector('.dropdown');
+            if (!dropdown.contains(e.target) && window.innerWidth <= 768) {
+                document.querySelector('.dropdown-content').classList.remove('active');
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
